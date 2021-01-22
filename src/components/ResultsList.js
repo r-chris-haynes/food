@@ -1,20 +1,34 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import ResultsDetail from '../components/ResultsDetail'
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import ResultsDetail from "../components/ResultsDetail";
 
-const ResultsList = ({ title, results }) => {
-  return <View style={styles.container}>
-    <Text style={styles.title}>{title}</Text>
-    <FlatList 
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      data={results}
-      keyExtractor={(result) => result.id}
-      renderItem={({ item }) => {
-        return <ResultsDetail result={item}/>
-      }}
-    />
-  </View>
+const ResultsList = ({ title, results, navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{title}</Text>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={results}
+        keyExtractor={(result) => result.id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ResultsShow")}
+            >
+              <ResultsDetail result={item} />
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -22,11 +36,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 15,
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   container: {
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 
 export default ResultsList;
